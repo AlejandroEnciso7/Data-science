@@ -1,3 +1,5 @@
+import math
+import random
 def nota_admision():    
     nota_admision = float(input("introduce el año de admision: "))
     print(f' la notade admision fue {nota_admision}') #esto imprime la variable entre llaves, importante poner la "f" al comienzo
@@ -173,3 +175,177 @@ Cada empleado votó por uno de los cuatro candidatos (representados por los núm
 También se contaron los votos nulos (representados por el número 5) y los votos en blanco (representados por el número 6).
 Al final de la votación, el programa debe mostrar el número total de votos para cada candidato, los votos nulos y los votos en blanco.
  Además, debe calcular y mostrar el porcentaje de votos nulos con respecto al total de votos y el porcentaje de votos en blanco con respecto al total de votos."""
+
+lista = [1, 2 ,3 ,4 ,5]
+
+def lista_iterar():
+    for elemento in lista:
+        print(elemento) #imprime cada elemento de la lista
+
+#lista [2] = 10.0 #esto cambia el valor de la lista en la posicion 2 por el nuevo valor 10.0
+
+promedio = (lista[1] + lista[2] + lista[3]) / 3 #esto suma los valores de la lista en las posiciones 1,2 y 3 y divide el resultado entre 3
+
+#split() #esto separa una cadena de texto en partes y las coloca en una lista, por ejemplo: 'hola mundo' se convierte en ['hola', 'mundo'], entre los parentesis se puede colocar el separador que se desea usar, por defecto es un espacio
+#join() #esto une una lista de cadenas de texto en una sola cadena, por ejemplo: ['hola', 'mundo'] se convierte en 'hola mundo', entre los parentesis se puede colocar el separador que se desea usar, por defecto es un espacio
+
+def mezcla():
+    mezclas = ['Pinturas: rojo, azul y amarillo',
+                'Verde: mezcla de azul y amarillo',
+                'Naranja: mezcla de rojo y amarillo',
+                'Morado: mezcla de rojo y azul']
+    unificador = '. '
+    cadena_mezclas = unificador.join(mezclas)
+    print(cadena_mezclas)
+
+#len() #esto cuenta el numero de elementos de una lista o cadena de texto, por ejemplo: len(['hola', 'mundo']) = 2, len('hola mundo') = 10
+#slice() #esto corta una lista o cadena de texto en partes, por ejemplo: ['hola', 'mundo'][1:3] = ['mundo'], 'hola mundo'[1:3] = 'ol', 
+# los corchetes excluyen el ultimo valor, por lo que si se quiere incluir el 3 se debe colocar [1:4]
+# .extend() #esto une dos listas, por ejemplo: lista1 = [1,2,3] y lista2 = [4,5,6], al hacer lista1.extend(lista2) la lista1 se convierte en [1,2,3,4,5,6]
+# .remove() #esto elimina un elemento de una lista, por ejemplo: lista = [1,2,3], al hacer lista.remove(2) la lista se convierte en [1,3]
+
+# insert(), que permite insertar un elemento en una posición específica de la lista. La sintaxis es lista.insert(indice, elemento), 
+# donde "lista" es la lista que recibirá el nuevo elemento, "indice" es la posición donde se insertará el nuevo elemento y "elemento" es el nuevo elemento que se insertará.
+
+razas_de_perros = ['Labrador Retriever',
+                       'Bulldog Francés',
+                       'Pastor Alemán',
+                       'Poodle']
+
+def razas_perros():
+    # Crear una lista de razas de perros
+    razas_de_perros = ['Labrador Retriever',
+                       'Bulldog Francés',
+                       'Pastor Alemán',
+                       'Poodle']
+
+    # Insertar un nuevo elemento con .insert() en la posición 1
+    razas_de_perros.insert(1, 'Golden Retriever')
+
+    # Imprimir la lista actualizada
+    print(razas_de_perros)
+# index() devuelve el índice de un elemento específico en la lista. Para hacerlo, especificamos el elemento entre paréntesis. 
+# Para encontrar el índice de la raza "Pastor Alemán" en la lista, hacemos lo siguiente:
+
+razas_de_perros.index('Pastor Alemán') # Esto devolverá el índice de la raza "Pastor Alemán" en la lista, que es 3.
+
+# .pop() elimina el elemento en una posición específica de la lista y lo devuelve como salida al ejecutar el método. 
+# Solo necesitamos especificar, entre paréntesis, el índice del elemento que deseamos eliminar, y se eliminará de la lista. 
+# razas_de_perros.pop(1) elminara el primer elemento de la lista, en este caso 'golden retriever'
+# .sort() ordena los elementos de la lista en orden ascendente o descendente. Si son palabras, el orden se basa en el orden alfabético
+
+def razas_perro_orden():
+    razas_de_perros.sort()
+    print(razas_perros)
+
+# DICCIONARIOS
+# un diccionario es una estructura de datos que almacena pares de clave-valor.
+# Las claves son únicas y se utilizan para acceder a los valores asociados.
+# La sintaxis para crear un diccionario es la siguiente: nombre_diccionario = {'clave1': valor1, 'clave2': valor2, ...}
+# Para acceder a un valor en un diccionario, utilizamos la clave entre corchetes. 
+#por ejemplo: estudiante = {'nombre': 'Juan', 'edad': 25}
+# Para acceder al nombre del estudiante, utilizamos "estudiante['nombre']", que devolverá 'Juan'.
+# para modificar un valor en un diccionario, simplemente asignamos un nuevo valor a la clave correspondiente.
+# Por ejemplo: estudiante['edad'] = 26 cambiará la edad del estudiante a 26.
+# tambien se pueden agregar nuevos pares clave-valor al diccionario utilizando la sintaxis nombre_diccionario['nueva_clave'] = nuevo_valor.
+# Por ejemplo: estudiante['ciudad'] = 'Madrid' agregará una nueva clave 'ciudad' con el valor 'Madrid' al diccionario.
+# .pop() elimina un par clave-valor del diccionario y devuelve el valor asociado a la clave eliminada.
+# Por ejemplo: estudiante.pop('edad') eliminará la clave 'edad' y devolverá el valor asociado a esa clave.
+# .items() devuelve una lista de tuplas que representan los pares clave-valor en el diccionario.
+# Por ejemplo: estudiante.items() devolverá [('nombre', 'Juan'), ('edad', 26), ('ciudad', 'Madrid')].
+# .keys() devuelve una lista de las claves en el diccionario.
+# Por ejemplo: estudiante.keys() devolverá ['nombre', 'edad', 'ciudad'].
+# .values() devuelve una lista de los valores en el diccionario.
+# Por ejemplo: estudiante.values() devolverá ['Juan', 26, 'Madrid'].
+
+# tambien se puede iterar sobre un diccionario utilizando un bucle for.
+# Por ejemplo:
+estudiante = {'nombre': 'Juan', 'edad': 25}
+
+for llave in estudiante:
+    print(llave) # Esto imprimirá cada clave en el diccionario.
+
+for llave, valor in estudiante.items():
+    print(f'Llave: {llave}, Valor: {valor}') # Esto imprimirá cada par clave-valor en el diccionario.
+# .clear() elimina todos los pares clave-valor del diccionario, dejándolo vacío.
+
+tienda = {'nombres': ['televisión', 'celular', 'notebook', 'geladeira', 'estufa'],
+          'precios': [2000, 1500, 3500, 4000, 1500]}
+
+def diccionario_tienda(): # preguntar por que esto me imprime el dicionario de estudiante tambien y por que no me imprime los nombres de los productos
+    tienda = {'nombres': ['televisión', 'celular', 'notebook', 'geladeira', 'estufa'],
+          'precios': [2000, 1500, 3500, 4000, 1500]}
+    for clave, elementos in tienda.items():
+        print(f'Clave: {clave}\nElementos:')
+    for dato in elementos:
+        print(dato)
+
+def papel_promedio():
+    gastos_papel = [2172.54, 3701.35, 3518.09, 3456.61, 3249.38, 2840.82, 3891.45, 3075.26, 2317.64, 3219.08]
+    promedio = sum(gastos_papel) / len(gastos_papel)
+    print(f'El promedio de gastos en papel es: {promedio}')
+
+def porcentaje_papel():
+    gastos_papel = [2172.54, 3701.35, 3518.09, 3456.61, 3249.38, 2840.82, 3891.45, 3075.26, 2317.64, 3219.08]
+    contador_3k = 0
+    for i in gastos_papel:
+        if i > 3000:
+            contador_3k +=1
+    porcentaje_3k = (contador_3k / len(gastos_papel)) * 100
+    print(f'El porcentaje de gastos superiores a 3000 es: {porcentaje_3k}%')
+    print(f'un total de {contador_3k} compras estuvieron por encima de 3000')
+
+def lista_enteros_random():
+    random_num=[]
+    for i in range(5):
+        random_num.append(round(random.random()*10))
+    print(random_num)
+    print(f'lista inversa: {random_num[::-1]}') #esto imprime la lista al reves, el [::-1] es un slice que indica 
+    #que se quiere imprimir la lista desde el final hasta el principio
+       
+def numeros_primos():
+    numero = int(input('ingresa un numero entero: '))
+    lista_primos = []
+    for num in range(2, numero): #se empieza desde 2 porque 1 no es primo, el loop recorre los numeros desde 2 hasta el numero ingresado -1
+        primo = True # esto es un flag que indica si el numero es primo o no 
+        for es_divisible in range(2, num): #aqui se va numero por numero probando si son divisibles por 0
+            if num % es_divisible == 0: #si el residuo de la division es 0, significa que el numero no es primo
+                primo = False
+                break #si el numero no es primo, se sale del loop y se pasa al siguiente numero
+        if primo:
+            lista_primos.append(num)
+    print(f'los numeros primos menores a {numero} son: {lista_primos}')
+
+def fecha_valida():
+        # Recopilamos la fecha
+    dia = int(input('Ingrese el día: '))
+    mes = int(input('Ingrese el mes: '))
+    año = int(input('Ingrese el año: '))
+
+    # Análisis de febrero
+    if mes == 2:
+    # Verificamos si es o no un año bisiesto
+        if año % 4 == 0 and (año % 400 == 0 or año % 100 != 0):
+            dias_febrero = 29
+        else:
+            dias_febrero = 28
+        # Verificamos si el día ingresado coincide con el máximo de días de febrero
+        if dia >= 1 and dia <= dias_febrero:
+            print('Fecha válida')
+        else:
+            print('Fecha inválida')
+        # Verificamos meses que terminan en 31 días
+    elif mes in [1, 3, 5, 7, 8, 10, 12]:
+        if dia >= 1 and dia <= 31:
+            print('Fecha válida')
+        else:
+            print('Fecha inválida')
+        # Verificamos meses que terminan en 30 días
+    elif mes in [4, 6, 9, 11]:
+        if dia >= 1 and dia <= 30:
+            print('Fecha válida')
+        else:
+            print('Fecha inválida')
+        # Si el mes no está entre 1 y 12
+    else:
+        print('Fecha invalida')
