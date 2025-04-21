@@ -89,4 +89,6 @@ Adapta los datos proporcionados a una estructura de diccionario. A partir de ell
  Dado que cada sector tiene 10 colaboradores, construye un código que calcule la media de edad de cada sector,
    la edad media general entre todos los sectores y cuántas personas están por encima de la edad media general.
 
-   Respuestas: https://app.aluracursos.com/course/python-data-science-primeros-pasos/task/86368 """
+   Respuestas: https://app.aluracursos.com/course/python-data-science-primeros-pasos/task/86368 
+   
+   """

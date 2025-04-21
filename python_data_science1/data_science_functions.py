@@ -378,3 +378,98 @@ def jardin():
     area = math.pi * math.pow(cantidad, 2) #esto calcula el area de un circulo, el area es igual a pi por el radio al cuadrado
     total = precio * area
     print(f'el precio total es {total}')
+
+def tabla_multiplicar(numero):
+    print(f"Tabla de multiplicar del {numero}:")
+    for i in range(11):
+        print(f"{numero} x {i} = {numero * i}")
+
+def multiplos_de_tres(lista):
+    lista_original = [97, 80, 94, 88, 80, 1, 16, 53, 62, 32, 24, 99]
+    return [num for num in lista if num % 3 == 0]
+    mult_3 = multiplos_de_tres(lista_original)
+    print(mult_3)
+
+numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+cuadrados = list(map(lambda x: x**2, numeros)) #devuelve el cuadrado de los numero en la lista
+print(cuadrados)
+
+def nota_skater():
+    notas = [float(input(f"Ingrese la nota {i + 1}: ")) for i in range(5)]
+    notas.sort()
+    media = sum(notas[1:4]) / 3
+    print(f"Nota de la maniobra: {media:.2f}")
+
+def analisis_notas(notas):
+    mayor = max(notas)
+    menor = min(notas)
+    media = sum(notas) / len(notas)
+    situacion = "Aprobado" if media >= 6 else "Reprobado"
+    return mayor, menor, media, situacion
+
+# Uso de la función
+# notas_estudiante = [float(input(f"Ingrese la nota {i + 1}: ")) for i in range(4)]
+# resultado = analisis_notas(notas_estudiante)
+# print(f"El estudiante obtuvo una media de {resultado[2]:.2f}, con la mayor nota de {resultado[0]:.2f} puntos y la menor nota de {resultado[1]:.2f} puntos y fue {resultado[3]}")
+
+# nombres = ["juan", "MaRia", "JOSÉ"]
+# sobrenombres = ["SILVA", "sosa", "Tavares"]
+
+# Normalizar nombres y apellidos y crear una nueva lista con los nombres completos
+# nombres_normalizados = map(lambda x: x.capitalize(), nombres)
+# sobrenombres_normalizados = map(lambda x: x.capitalize(), sobrenombres)
+# nombres_completos = list(map(lambda x, y: f"Nome completo: {x} {y}", nombres_normalizados, sobrenombres_normalizados))
+# print(nombres_completos)
+
+dias = int(input("¿Cuántas diarias? "))
+ciudad = input("¿Cuál es la ciudad? [Salvador, Fortaleza, Natal o Aracaju]: ")
+distancias = [850, 800, 300, 550]
+paseo = [200, 400, 250, 300]
+km_l = 14
+gasolina = 5
+
+def gasto_hotel(dias):
+    return 150 * dias
+
+def gasto_gasolina(ciudad):
+    if ciudad == "Salvador":
+        return (2 * distancias[0] * gasolina) / km_l 
+    elif ciudad == "Fortaleza":
+        return (2 * distancias[1] * gasolina) / km_l 
+    elif ciudad == "Natal":
+        return (2 * distancias[2] * gasolina) / km_l 
+    elif ciudad == "Aracaju":
+        return (2 * distancias[3] * gasolina) / km_l 
+
+def gasto_paseo(ciudad, dias):
+    if ciudad=="Salvador":
+        return paseo[0] * dias
+    elif ciudad=="Fortaleza":
+        return paseo[1] * dias
+    elif ciudad=="Natal":
+        return paseo[2] * dias 
+    elif ciudad=="Aracaju":
+        return paseo[3] * dias 
+
+# gastos = gasto_hotel(dias) + gasto_gasolina(ciudad) + gasto_paseo(ciudad, dias)
+# print(f"Con base en los gastos definidos, un viaje de {dias} días a {ciudad} desde Recife costaría {round(gastos, 2)} reales")
+
+def separar_notas():
+    notas_grupo = ['juan', 8, 9, 10, 'maria', 9, 7, 6, 'jose', 3, 7, 7, 'claudia', 5, 6, 8, 'ana', 6, 10, 9]
+    nombres =[]
+    notas =[]
+    for i in range(len(notas_grupo)): #itera por toda la lista de notas grupo
+        if i % 4 ==0: # cada elemento lo divide en 4 (0, 4, 8, 12, 16)y si da 0 de residuo lo añade a la lista de nombres, esto funciona ya que sabemos que solo hay 3 notas por estudiante
+            nombres.append(notas_grupo[i]) #si cumple la condicion se añade a la lista de nombres
+        else:
+            notas.append(notas_grupo[i]) #si no cumple la condicion se añade a la lista de notas
+    print(f'nombres: {nombres}')
+    notas_separadas = []
+    for i in range(0, len(notas), 3): #itera po la lista de notas, empezando desde el 0 y va de 3 en 3, es decir, 0, 3, 6, 9, 12, 15
+        notas_separadas.append([notas[i], notas[i+1], notas[i+2]]) #añade la primera iteracion de i que seria el index 0, luego i+1 seria el index 1 y asi sucesivamente
+    print(f'notas: {notas_separadas}')
+
+def julia():
+    registro = ("Julia", 23, "CDMX", "EM", "Python para DS 1")
+    print(registro[0])  # imprime Julia
+    print(registro[-1])  # imprime Python para DS 1
