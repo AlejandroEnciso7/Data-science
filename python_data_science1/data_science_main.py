@@ -34,7 +34,18 @@ lista = [1, 2 ,3 ,4 ,5]
 # notas_actualizadas = map(lambda x: x +0.5, notas) # se le suma 0.5 a cada elemento de la lista notas
 # print(list(notas_actualizadas)) # se convierte el resultado en una lista para poder imprimirlo
 
+# LIST COMPREHENSION
+# Nombre de lista nueva = [funcion(nota) for x in x] # se usa para crear una nueva lista a partir de una lista existente aplicando una función a cada elemento de la lista original
+# nombre_lista [lo que quiero que haga con X informacion] # se puede pensar como un query y lo que devuelva ese query es lo que uqeda como valor de la lista
+# EX: promedios =[round(nota) for nota in notas] # se redondea cada elemento de la lista notas y se guarda en la lista promedios
+# ex: estudiantes = list(zip(nombres, promedios)) # se crea una lista de tuplas con los nombres y promedios de los estudiantes
+    #estudiantes = [('Juan', 3.5), ('Pedro', 4.0), ('Maria', 4.5)] # se crea una lista de tuplas con los nombres y promedios de los estudiantes
+# candidatos_beca = [estudiantes[0] for estudiante in estudiantes if estudiante[1] >= 4] # añade estudiantes [0] que es el nombre de caja conjunto de nombre, nota ya que 0 es el primer index
+    # luego se utiliza el if para ver el segundo index (estudiante[1]) es decir la nota, es mayor o igual a  4, 
+    # asi al final la lista 'candidatos_beca' solo tendra los estudiantes que cumplan con la condicion
 
+# DICTIONARY COMPREHENSION
+# {llave: valor for item in lista}
 
 # lib.num_in_list(lista)
 lib.jardin()

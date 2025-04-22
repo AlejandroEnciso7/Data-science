@@ -473,3 +473,35 @@ def julia():
     registro = ("Julia", 23, "CDMX", "EM", "Python para DS 1")
     print(registro[0])  # imprime Julia
     print(registro[-1])  # imprime Python para DS 1
+
+def entender_zip():
+    a = ("John", "Charles", "Mike")
+    b = ("Jenny", "Christy", "Monica")
+
+    x = zip(a, b) #junta tuplas, donde los valores se juntan los primeros con los primeros, segundos con segundos y asi sucesivamente
+    print(list(x)) #convierte el zip en una lista y lo imprime, en este caso imprime [('John', 'Jenny'), ('Charles', 'Christy'), ('Mike', 'Monica')]
+    # si las tuplas/listas tienen diferente length, el mas corto define la longitud del resultado
+
+    # Para realizar el proceso contrario, de transformar una tupla iterable en listas, 
+    # basta con colocar el operador asterisco (*) al lado izquierdo del nombre de la tupla iterable que se desea extraer los datos, 
+    # transmitiendo cada tupla a una variable.
+def reverse_zip():
+    tupla_iterable = [('J392', 'Juan'), ('M890', 'Maria'), ('J681', 'José'), ('C325', 'Claudia'), ('A49', 'Ana')]
+    ids, nombres = zip(*tupla_iterable)
+
+    ids = list(ids)
+    nombres = list(nombres)
+
+    print("IDs = ", ids) # IDs = ['J392', 'M890', 'J681', 'C325', 'A49']
+    print("Nombres = ", nombres) # Nombres = ['Juan', 'Maria', 'José', 'Claudia', 'Ana']
+
+# def lista_de_listas():
+    # registros= [nombres, notas, promedios, situacion] # esto crea una lista de listas, donde cada lista es una lista de los nombres, notas, promedios y situacion
+    # print(registros) # imprime la lista de listas
+    
+def IMC():
+    alturas = [1.70, 1.80, 1.65, 1.75, 1.90]
+    pesos = [65, 80, 58, 70, 95]
+
+    imc = [round((peso / altura**2), 1) for altura, peso in zip(alturas, pesos)]
+    print(imc)
