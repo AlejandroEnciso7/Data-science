@@ -505,3 +505,29 @@ def IMC():
 
     imc = [round((peso / altura**2), 1) for altura, peso in zip(alturas, pesos)]
     print(imc)
+
+def dictionario_comprehension():
+    codigos_estudiantes = [('J392', 'Juan'), ('M890', 'Maria'), ('J681', 'José'), ('C325', 'Claudia'), ('A49', 'Ana')]
+    #registro seria el nombre del diccionario
+    ['estudiante'] = [codigos_estudiantes [0] [i] [0] for i in range(len(codigos_estudiantes[0]))]
+    # esto crea una key del diccionario con los valores, [0] es para especificar que es sobre la primera lista
+    #[i] es para identificar que es sobre cada elemento de la lista 
+    # [0] el segundo cero es para identificar que solo se itera sobre el primer elemento de cada tupla de la lista seleccionada
+
+def becas():
+    nombres_estudiantes = ["Enrique Montero", "Luna Pereira", "Anthony Silva", "Leticia Fernandez", "Juan González", "Maira Caldera", "Diana Carvajo", "Mariana Rosas", "Camila Fernandez", "Levi Alves", "Nicolás Rocha", "Amanda Navas",  "Lara Morales", "Leticia Olivera", "Lucas Navas", "Lara Arteaga", "Beatriz Martinez", "Victor Acevedo", "Stephany Hernández", "Gustavo Lima"]
+    medias_estudiantes = [5.4, 4.1, 9.1, 5.3, 6.9, 3.1, 9.0, 5.0, 8.2, 5.5,
+                        8.1, 7.4, 5.0, 3.7, 8.1, 6.2, 6.1, 5.6, 10.0, 8.2]
+
+def excepciones():
+    notas = [5.4, 4.1, 9.1, 5.3, 6.9, 3.1, 9.0, 5.0, 8.2, 5.5, 8.1, 7.4, 5.0, 3.7, 8.1, 6.2, 6.1, 5.6, 10.0, 8.2]
+    nombres = ["Enrique Montero", "Luna Pereira", "Anthony Silva", "Leticia Fernandez", "Juan González", "Maira Caldera", "Diana Carvajo"]
+    try:
+        nombre = input("Ingrese su nombre: ")
+        resultado = notas [nombre]
+    except KeyError:
+        print("El nombre no existe en el diccionario.")
+    else:
+        print(f"El resultado es: {resultado}")
+    finally:
+        print("Fin del programa.")

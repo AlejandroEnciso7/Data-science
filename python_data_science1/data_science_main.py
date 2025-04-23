@@ -46,6 +46,22 @@ lista = [1, 2 ,3 ,4 ,5]
 
 # DICTIONARY COMPREHENSION
 # {llave: valor for item in lista}
+# a partir de dos listas se asignan las llaves y valores del diccionario
+# keys = ['a','b','c','d','e']
+# values = [1,2,3,4,5]  
+# myDict = { keys:values for (keys,values) in zip(keys, values)}
+# output: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}  
+
+# EXCEPTIONS HANDLING
+# try:
+#     #codigo que puede dar error
+# except:
+#     #codigo que se ejecuta si hay un error, aqui tambien se puede aclarar que tipo de error es el que se necesita para que se ejecute EX: except KeyError:
+#     #codigo que se ejecuta si hay un error de tipo KeyError
+# else:
+#     #codigo que se ejecuta si no hay error
+# finally:
+#     #codigo que se ejecuta siempre, sin importar si hay error o no
 
 # lib.num_in_list(lista)
 lib.jardin()
