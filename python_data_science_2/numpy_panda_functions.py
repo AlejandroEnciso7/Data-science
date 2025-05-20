@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def lista_a_array(lista):
         # crea una lista
@@ -28,3 +29,19 @@ def pivotear_array(array):
 
 # Shape(archivodatos) devuelve la forma de un array o dataframe y se puede utilizar para conocer la dimensiones de ua matriz
 
+def promedio_manzanas():
+    pass
+    #np.mean(moscu) #en este caso moscu es array de datos
+
+def llenar_valor_nan():    # interpolar, solucion para llenar valores faltantes en una matrix o dataset
+    #kalingrado[4] = kalingrado[3] + kalingrado[5]/2 #esto se hace cuando hay un valor nulo en la matriz se puede llenar con el promedio de los valores enterior y despues
+    pass
+
+def ejercicio_naranjas():
+    '''diametro_naranja = dato[:5000, 0]
+    diametro_toronja = dato[5000:, 0]
+    peso_naranja = dato[:5000, 1]
+    peso_toronja = dato[5000:, 1]
+
+    plt.plot(diametro_naranja, peso_naranja)
+    plt.plot(diametro_toronja, peso_toronja)'''
