@@ -37,11 +37,14 @@ def llenar_valor_nan():    # interpolar, solucion para llenar valores faltantes 
     #kalingrado[4] = kalingrado[3] + kalingrado[5]/2 #esto se hace cuando hay un valor nulo en la matriz se puede llenar con el promedio de los valores enterior y despues
     pass
 
-def ejercicio_naranjas():
-    '''diametro_naranja = dato[:5000, 0]
-    diametro_toronja = dato[5000:, 0]
-    peso_naranja = dato[:5000, 1]
-    peso_toronja = dato[5000:, 1]
+def encontrar_valor_pendiente():
+    pendiente = np.random.uniform(0.1, 0.9, 10)
+    for i in range (10):
+        print(np.linalg.norm(moscu - (pendiente[i]*x + b))) #np.linalg.norm esto calcula la distancia entre dos puntos en un espacio n-dimensional tomando X y Y
+        # X en este caso son los precions de las manzanas en moscu y Y va a ser el valor de la pendiente en cada una de las iteraciones * x (que seria la fecha)
+        # +b que es el valor de la intersección 
+  
+norma = np.array([])
 
-    plt.plot(diametro_naranja, peso_naranja)
-    plt.plot(diametro_toronja, peso_toronja)'''
+for i in range (100):
+    norma = np.append(norma, np.linalg.norm(moscu - (pendiente[i]*x + b))) #
