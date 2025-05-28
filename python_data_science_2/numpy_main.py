@@ -1,4 +1,4 @@
-import numpy_panda_functions as lib
+import python_data_science_2.numpy_functions as lib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
