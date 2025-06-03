@@ -57,3 +57,20 @@ df.drop(df_remover, inplace=True) # esto elimina las filas donde los indices de 
 df.drop('Tipo', axis=1, inplace=True) # esto elimina la columna Tipo del DataFrame df, axis=1 indica que se eliminará una columna, axis=0 indica que se eliminará una fila
 
 #APLICAR FILTROS
+# se crea una mascara para filtrar los datos
+mascara1= df['Habitaciones'] == 1 # esto crea una mascara que filtra los datos donde la columna Habitaciones sea igual a 1
+df[mascara1] # esto aplica la mascara al DataFrame df y devuelve las filas donde la columna Habitaciones sea igual a 1
+
+mascara2= df['Valor'] > 100000 # esto crea una mascara que filtra los datos donde la columna Valor sea mayor a 100000
+df[mascara2] # esto aplica la mascara al DataFrame df y devuelve las filas donde la columna Valor sea mayor a 100000
+# se pueden combinar las mascaras con el operador & (AND) o | (OR)
+
+filtro1= mascara1 & mascara2 # esto combina las mascaras con el operador AND, es decir, devuelve las filas donde la columna Habitaciones sea igual a 1 y la columna Valor sea mayor a 100000
+df[filtro1] # esto aplica el filtro al DataFrame df y devuelve las filas donde la columna Habitaciones sea igual a 1 y la columna Valor sea mayor a 100000
+
+# EXPORTAR 
+df.to_csv('inmuebles_machine_learning.csv', index=False, sep =';') # esto exporta el DataFrame df a un archivo CSV llamado 'inmuebles_machine_learning.csv' sin incluir los indices
+# esto se hace ya que al modificar el dataframe, los indices pueden cambiar y los originales no serian los mismos.
+# SEP = ';' indica que se usará el punto y coma como separador de campos en el archivo CSV, por defecto es la coma (,)
+df.to_excel('nombre_archivo.xlsx', index=False) # esto exporta el DataFrame df a un archivo Excel llamado 'nombre_archivo.xlsx' sin incluir los indices
+df.to_json('nombre_archivo.json', orient='records', lines=True) # esto exporta el DataFrame df a un archivo JSON llamado 'nombre_archivo.json' en formato de registros,
