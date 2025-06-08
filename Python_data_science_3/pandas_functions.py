@@ -74,3 +74,18 @@ df.to_csv('inmuebles_machine_learning.csv', index=False, sep =';') # esto export
 # SEP = ';' indica que se usará el punto y coma como separador de campos en el archivo CSV, por defecto es la coma (,)
 df.to_excel('nombre_archivo.xlsx', index=False) # esto exporta el DataFrame df a un archivo Excel llamado 'nombre_archivo.xlsx' sin incluir los indices
 df.to_json('nombre_archivo.json', orient='records', lines=True) # esto exporta el DataFrame df a un archivo JSON llamado 'nombre_archivo.json' en formato de registros,
+
+# CREAR COLUMNAS NUEVAS 
+
+df['Valor_total'] = df['Valor'] + df['Impuesto'] - df['Descuento']
+df['Descripcion'] = df['Tipo'] + ' - ' + df['Ciudad'] # esto crea una nueva columna llamada Descripcion que concatena los valores de las columnas Tipo y Ciudad. si se usa \ al fina
+# de la linea, se puede continuar en la siguiente linea sin problemas
+df['descripcion 2'] = df['Tipo'] + ' Con ' + df['Habitaciones'].astype(str) + ' Habitaciones' # esto crea una nueva columna llamada descripcion 2 que concatena 
+# los valores de las columnas Tipo y Habitaciones, .astype(str) convierte los valores de la columna Habitaciones a string para poder concatenarlos (originalmente son int)
+
+df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+df['C'] = [7, 8, 9] # crea una columna C con los valores 7, 8 y 9
+
+datos[' Tiene_suite'] = datos['Suites'].apply(lambda x: 'Si' if x > 0 else 'No') # esto crea una nueva columna llamada 'Tiene_suite' 
+# que indica si la columna Suites es mayor a 0, si es asi, devuelve 'Si', si no, devuelve 'No'
+# en le txt cuando una casilla no tenga suite se veran varias ;;;; seguidos (uno para cada casilla sin suite), esto es normal ya que no hay un valor para esa columna
