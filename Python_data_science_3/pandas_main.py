@@ -1,5 +1,7 @@
 
 import pandas as pd
+import sqlalchemy
+from sqlalchemy import create_engine, MetaData, Table, inspect, text, Error
 
 url = 'https://gist.githubusercontent.com/ahcamachod/a572cfcc2527046db93101f88011b26e/raw/ffb13f45a79d31223e645611a119397dd127ee3c/alquiler.csv'
 
@@ -56,6 +58,13 @@ datos = pd.read_csv(url)
 # pd.read_sql()
 # import sqlalchemy
 # from sqlalchemy import create_engine, MetaData, Table, inspect, text
+#para volverlo sql hay que volverlo un dataframe primero y luego usar .to_sql()
+# datos.to_sql('nombre_tabla', engine,  index=False)
+# query = 'SELECT * FROM nombre_tabla WHERE columna_categoria = "empleado"'
+# empleados= pd.read_sql(sql=text(query), con= engine.connect()) # esto permite leer una consulta sql y convertirla en un dataframe de pandas
+# empleados.to_sql('empleados', con=engine.connect(), index=False) # esto permite guardar el dataframe como una tabla en la base de datos
+#pd.read_sql_table('empleados', con = engine.connect(), columns=['columnas_que_quiero_leer']) 
+
 
 #los parametors de skiprows= x # permite saltar las primeras x filas del archivo
 # Skipfooter= x # permite saltar las ultimas x filas del archivo
@@ -75,3 +84,31 @@ datos.info()
 #object significa que es un string, int64 significa que es un entero, float64 significa que es un decimal
 datos[['columna1', 'columna2']]
 #esto muestra las columnas que le indico entre corchetes
+
+# BORRAR REGISTROS
+datos.drop('columna_a_borrar', axis=1, inplace=True)
+# esto borra la columna que le indico, axis=1 indica que es una columna, inplace=True indica que se hace el cambio en el mismo dataframe
+
+# ACTUALIZAR de SQL
+# query = 'DELETE/UPDATE/INSERT FROM nombre_tabla WHERE columna_categoria = "empleado"'
+try:
+    r_set = engine.connect().execute(text(query)) # uno se debe conectar al motor de la base de datos y ejecutar la consulta, la consulta siempre se utiliza con text(query)
+EXCEPT SQLAlchemyError as e:
+    print(f"Error al eliminar registros: {e}")
+else:
+    print("Registros eliminados correctamente.")
+
+# INSERTAR INFORMACION
+from sqlalchemy.exc import SQLAlchemyError
+query = 'INSERT INTO clientes (ID_Cliente, Edad, Grado_estudio, Estado_civil, ' \
+        'Tamaño_familia, Categoria_de_renta, Ocupacion, Años_empleado, ' \
+        'Rendimiento_anual, Tiene_carro, Vivienda) ' \
+        'VALUES (6850985, 33, "Doctorado", "Soltero", 1, "Empleado", "TI", ' \
+        '2, 290000, 0, "Casa/Departamento propio")'
+
+try:
+  r_set=engine.connect().execute(text(query))
+except SQLAlchemyError as e:
+  print(e)
+else:
+  print("#Registros insertados: ",r_set.rowcount)
