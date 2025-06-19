@@ -91,7 +91,7 @@ datos.drop('columna_a_borrar', axis=1, inplace=True)
 
 # ACTUALIZAR de SQL
 # query = 'DELETE/UPDATE/INSERT FROM nombre_tabla WHERE columna_categoria = "empleado"'
-try:
+'''try:
     r_set = engine.connect().execute(text(query)) # uno se debe conectar al motor de la base de datos y ejecutar la consulta, la consulta siempre se utiliza con text(query)
 EXCEPT SQLAlchemyError as e:
     print(f"Error al eliminar registros: {e}")
@@ -111,4 +111,16 @@ try:
 except SQLAlchemyError as e:
   print(e)
 else:
-  print("#Registros insertados: ",r_set.rowcount)
+  print("#Registros insertados: ",r_set.rowcount) '''
+
+# SACAR DATOS DE LAS LISTAS DE LAS COLUMNAS (EXPLODE)
+# datos.explode('columna_con_listas')
+# esto permite sacar los datos de las listas de las columnas y convertirlos en filas, por ejemplo si tengo una columna con listas de frutas, cada fruta se convertira en una fila
+# el indice sera el mismo por cada fila, es decir si se so explode en una columna conuna lista de [manzanas, narnajas] el indice para ambas filas sera el mismo
+# datos.reset_index('columna_con_listas', inplace=True) # esto permite resetear el indice del dataframe, es decir que el indice sera 0,1,2,3... y no sera el mismo para cada fila
+
+# datos['columna_nombre'].astype('str/int64/float64') # esto permite cambiar el tipo de dato de una columna, por ejemplo si quiero cambiar una columna de string a entero, o de entero a decimal
+# esto solo muestra el resultado, si quiero cambiarlo puedo hacerlo asi:
+# datos['columna_nombre'] = datos['columna_nombre'].astype('str/int64/float64') # esto cambia el tipo de dato de la columna en el dataframe
+# datos['nombre_columna'].apply(lambda x: x.replace('caracter_a_reemplazar', 'nuevo_caracter')) # esto permite reemplazar un caracter por otro en una columna, 
+# por ejemplo si quiero reemplazar un espacio por un guion bajo en una columna de nombres, o remover algun caracter en especifico 
