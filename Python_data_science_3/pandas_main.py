@@ -124,3 +124,27 @@ else:
 # datos['columna_nombre'] = datos['columna_nombre'].astype('str/int64/float64') # esto cambia el tipo de dato de la columna en el dataframe
 # datos['nombre_columna'].apply(lambda x: x.replace('caracter_a_reemplazar', 'nuevo_caracter')) # esto permite reemplazar un caracter por otro en una columna, 
 # por ejemplo si quiero reemplazar un espacio por un guion bajo en una columna de nombres, o remover algun caracter en especifico 
+# para revisar mas de una columna se hace asi:
+# datos[['columna1', 'columna2']] 
+# cuando es una unica columna se  llama una "serie" y cuando son varias columnas se llama un "dataframe", para poder realizar el metodo apply, se utiliza applymap
+# datos[['columna1', 'columna2']].applymap(lambda x: x.replace('caracter_a_reemplazar', 'nuevo_caracter')) # esto permite reemplazar un caracter por otro en varias columnas, por ejemplo si quiero reemplazar un espacio por un guion bajo en una columna de nombres, o remover algun caracter en especifico
+
+# REGEX
+# permiten buscar patrones en los datos, por ejemplo si quiero buscar todos los numeros en una columna de texto, o todos los correos electronicos en una columna de texto
+# datos['nombre_columna'].str.replace('[^a-zA-Z0-9\-\']', '', regex=True), el acento circunflejo (^) indica que se haran los cambios sobre todo xcepto lo que se encuentre alli
+# esto permite reemplazar todos los caracteres que no sean letras, numeros, guiones o apostrofes por un espacio en blanco. '\-' significa que se esta buscando lo que va luego del '\'
+# en este caso el guion, lo mismo sucede con el apóstrofe, que se busca con "\'".
+# datos['nombre_columna'].str.replace('(?<!\w)-(?<!\w)', '', regex=True) esto permite eliminar los guiones que no esten precedidos ni seguidos por una letra o un numero 
+# es decir que solo se eliminan los guiones que no esten en medio de una palabra
+# tambien se puede crear asi: datos['nombre_columna'].str.replace('\{|}|\"', '', regex=True) 
+# esto permite eliminar las llaves y las comillas de una columna de texto, por ejemplo si tengo un json en una columna y quiero eliminar las llaves y las comillas", 
+# el '|' significa "o", por lo que se esta buscando las llaves o las comillas, y se reemplazan por un espacio en blanco.
+
+# TOKENIZAR
+#datos['columna_texto'].str.split() # esto permite dividir el texto en palabras, es decir que cada palabra se convierte en una fila
+# split() lo convierte en una lista con las palabras dentro de la columna sobre la que  se aplica, dentro del () de split() 
+# se puede poner el caracter que se quiere usar como separador, por ejemplo si quiero separar por comas, se pone split(',')
+
+#pd.to_datetime(datos['columna_fecha'], format='%Y-%m-%d') # esto permite convertir una columna de texto en una columna de fechas
+#  el formato es el que se usa en la columna de texto
+# dt_data['columna_con_fechas'].dt.strftime('%Y-%m-%d') # esto permite convertir una columna de fechas en una columna de texto con el formato que se le indique
