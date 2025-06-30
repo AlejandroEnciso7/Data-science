@@ -2,6 +2,7 @@
 import pandas as pd
 import sqlalchemy
 from sqlalchemy import create_engine, MetaData, Table, inspect, text, Error
+import matplotlib.pyplot as plt
 
 url = 'https://gist.githubusercontent.com/ahcamachod/a572cfcc2527046db93101f88011b26e/raw/ffb13f45a79d31223e645611a119397dd127ee3c/alquiler.csv'
 
@@ -148,3 +149,4 @@ else:
 #pd.to_datetime(datos['columna_fecha'], format='%Y-%m-%d') # esto permite convertir una columna de texto en una columna de fechas
 #  el formato es el que se usa en la columna de texto
 # dt_data['columna_con_fechas'].dt.strftime('%Y-%m-%d') # esto permite convertir una columna de fechas en una columna de texto con el formato que se le indique
+

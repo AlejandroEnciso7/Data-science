@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 url = 'https://gist.githubusercontent.com/ahcamachod/a572cfcc2527046db93101f88011b26e/raw/ffb13f45a79d31223e645611a119397dd127ee3c/alquiler.csv'
 
@@ -89,3 +91,28 @@ df['C'] = [7, 8, 9] # crea una columna C con los valores 7, 8 y 9
 datos[' Tiene_suite'] = datos['Suites'].apply(lambda x: 'Si' if x > 0 else 'No') # esto crea una nueva columna llamada 'Tiene_suite' 
 # que indica si la columna Suites es mayor a 0, si es asi, devuelve 'Si', si no, devuelve 'No'
 # en le txt cuando una casilla no tenga suite se veran varias ;;;; seguidos (uno para cada casilla sin suite), esto es normal ya que no hay un valor para esa columna
+
+plt.plot(datos['Valor'], datos['Habitaciones']) # esto crea un gráfico de dispersión donde el eje x es la columna Valor y el eje y es la columna Habitaciones
+plt.xticks(['<100k', '100k-200k', '200k-300k', '>300k'], rotation=45) # esto cambia las etiquetas del eje x a los valores especificados y las rota 45 grados para una mejor visualización
+plt.xlabel('Valor') # esto cambia el nombre del eje x a 'Valor'
+plt.figure(figsize=(10, 6)) # esto cambia el tamaño de la figura a 10 de ancho y 6 de alto (en pulgadas), tambien puede facilitar la visualizacion de los graficos
+plt.title('Gráfico de dispersión de Valor vs Habitaciones') # esto cambia el título del gráfico a 'Gráfico de dispersión de Valor vs Habitaciones'
+
+fig, ax = plt.subplots(figsize=(10, 6)) # esto crea una figura y un eje para el gráfico con un tamaño de 10 de ancho y 6 de alto (en pulgadas)
+ax.plot(datos['Valor'], datos['Habitaciones'], marker='o', linestyle='') # esto crea un gráfico de dispersión donde el eje x es la columna Valor y el eje y es la columna Habitaciones
+ax.xaxis.set_major_locator(plt.MultipleLocator(100000)) # esto establece el intervalo de los ticks del eje x a 100000
+
+figx, axs = plt.subplots(1,2, figsize=(12, 6)) # esto crea una figura con 1 fila y 2 columnas de subgráficos, con un tamaño de 12 de ancho y 6 de alto (en pulgadas)
+# si fuera 2,2 se crearia una figura con 2 filas y 2 columnas de subgráficos, y asi sucesivamente
+
+axs[0].plot(datos['Valor'], datos['Habitaciones'], marker='o', linestyle='') # esto crea un gráfico de dispersión en el primer subgráfico marcado como [0]
+axs[0].set_title('Gráfico de dispersión de Valor vs Habitaciones') # se pueden incluir todos los parametros vistos antes, labels, titles, multiple locators, etc
+
+axs[1].plot(datos['Valor'], datos['Suites'], marker='o', linestyle='') # esto crea un gráfico de dispersión en el segundo subgráfico marcado como [1]
+axs[1].set_title('Gráfico de dispersión de Valor vs Suites') # se pueden incluir todos los parametros vistos antes, labels, titles, multiple locators, etc
+
+# al final mostrara el grafico 1 (axs[0]) y el grafico 2 (axs[1]) uno al lado del otro
+# tambien se pueden hacer anotaciones en los graficos, por ejemplo:
+# for i, j in enumerate(datos['Valor']):
+     #ax.text(j+20,i,str(j), fontsize=8, color='red') # esto agrega un texto al gráfico en la posición (j+20, i) con el valor de j como texto, fontsize=8 y color rojo
+     #j es el valor de la columna Valor y i es el indice de la fila, por lo que se puede usar para agregar etiquetas a los puntos del gráfico

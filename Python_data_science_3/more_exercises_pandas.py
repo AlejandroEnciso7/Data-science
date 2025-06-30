@@ -21,4 +21,26 @@ False: si el estudiante está reprobado (la nota final debe ser menor que 7.0).
 Realiza una selección y verifica qué estudiantes no habían sido aprobados anteriormente, pero ahora fueron aprobados después de sumar los puntos extras.
 
 R:= https://app.aluracursos.com/course/pandas-conociendo-biblioteca/task/87042
+
+ debes crear cuatro subgráficos dispuestos en dos filas y dos columnas, donde cada subgráfico represente una tienda diferente. En este desafío, cada subgráfico debe presentar un gráfico de líneas que muestre la variación del número de ventas a lo largo de los meses del año.
+
+¡Ahora es el momento de mostrar tus habilidades en análisis de datos y visualización! Para crear el DataFrame con el número de ventas de las tiendas y crear la figura, utiliza la siguiente información:
+
+tiendas = ['A', 'B', 'C', 'D']
+ventas_2022 = {'Ene': [100, 80, 150, 50],
+    'Feb': [120, 90, 170, 60],
+    'Mar': [150, 100, 200, 80],
+    'Abr': [180, 110, 230, 90],
+    'May': [220, 190, 350, 200],
+    'Jun': [230, 150, 280, 120],
+    'Jul': [250, 170, 300, 140],
+    'Ago': [260, 180, 310, 150],
+    'Sep': [240, 160, 290, 130],
+    'Oct': [220, 140, 270, 110],
+    'Nov': [400, 220, 350, 190],
+    'Dec': [300, 350, 400, 250]}
+
+    R= https://app.aluracursos.com/course/visualizacion-datos-graficos-bibliotecas-python/task/87858
+
+
 '''
