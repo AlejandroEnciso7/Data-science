@@ -150,3 +150,7 @@ else:
 #  el formato es el que se usa en la columna de texto
 # dt_data['columna_con_fechas'].dt.strftime('%Y-%m-%d') # esto permite convertir una columna de fechas en una columna de texto con el formato que se le indique
 
+# EXPORTAR GRAFICOS
+# fig.savefig para guardar el gráfico. Debes especificar la ruta y el nombre del archivo, el formato (por ejemplo, PNG), 
+# si el fondo debe ser transparente o no (transparent=False para fondo blanco), la resolución (dpi=300 para una buena calidad) y 
+# si quieres márgenes ajustados (bbox_inches='tight').
