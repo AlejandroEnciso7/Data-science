@@ -136,3 +136,35 @@ print(f"La mediana de la edad es {datos.Edad.median()}")  # Calcula la mediana d
 # Crear un DataFrame para almacenar los coeficientes del modelo
 # Interpretar los coeficientes estimados
 # Analizar gráficamente los resultados del modelo
+
+# cuando se estan defininedo los pesos de las variables independientes, es importante estandarizarlas, para que todas tengan la misma escala y no se vean afectadas por la magnitud de los valores.
+# por ejemplo, si hay una variable de estado civil, casado no deberia tener mas peso que soltero, 
+# por lo que se puede usar OneHotEncoder para convertir variables categóricas en variables dummy/indicadoras.
+# para ello se usa: 
+# from sklearn.compose import make_column_transformer
+# from sklearn.preprocessing import OneHotEncoder
+# columnas = x.columns # obtiene las columnas del DataFrame x, que contiene las variables independientes.
+# one_hot_encoder = make_column_transformer(
+#     (OneHotEncoder(drop= 'if_binary'), 
+#                   ['Sexo', 'Color']),  # Aplica OneHot a esas columnas
+#                remainder='passthrough',  # Deja las demás columnas sin cambios
+#               sparse_threshold=0)  # No crea matrices dispersas, garantiza que el modelo no quite informacion relevante de las columnas originales.
+#               force_int_remainder_cols=False)  # Asegura que las columnas restantes no se conviertan a enteros, manteniendo su tipo de dato original.
+
+# x = one_hot_encoder.fit_transform(X) # aqui se aplica el OneHotEncoder a las variables independientes X, transformando las variables categóricas en variables dummy/indicadoras.
+# one_hot_encoder.get_feature_names_out(columnas)  # Obtiene los nombres de las nuevas columnas generadas por OneHotEncoder, 
+# que corresponden a las variables dummy/indicadoras creadas a partir de las variables categóricas.
+
+# Los algoritmos de Machine Learning no pueden comprender información que no esté en formato numérico. 
+# Por lo tanto, si se desea utilizar variables categóricas en modelos, es necesario que pasen por algún tipo de tratamiento para que estén en formato numérico.
+#  Esto no significa que se convertirán en variables numéricas, solo que estarán en un formato que sea comprendido por los modelos.
+# Así, estas transformaciones deben preservar la información real de las categorías de la mejor manera posible, sin introducir sesgos en el modelo y 
+# sin información que esté alejada de la realidad. La forma ideal de hacer este tipo de transformación, que mantiene la información original, 
+# se conoce como one hot encoding. Esta acción transforma cada una de las clases de las variables categóricas en nuevas columnas,
+# utilizando el valor 0 para representar la ausencia de la característica y 1 para la presencia de la característica en la muestra de la base de datos.
+
+#pd.dataframe(x, columns=one_hot_encoder.get_feature_names_out(columnas))  # Crea un DataFrame a partir de la matriz transformada por OneHotEncoder,
+
+# from sklearn.preprocessing import LabelEncoder # ayuda a convertir las variable tipo objeto en variables numéricas,
+# label_encoder = LabelEncoder()  # Crea una instancia del codificador de etiquetas
+# y = label_encoder.fit_transform(y)  # Aplica el codificador a la variable dependiente y, transformando las categorías (en este caso 'si' y 'no'en valores numéricos.
