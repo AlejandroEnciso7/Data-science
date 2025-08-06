@@ -94,4 +94,126 @@ onehot encoder__sexo_biologico_Mujer  onehotencoder__pais_Alemania  \
 from sklearn.preprocessing import LabelEncoder
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(y)
+
+1 - Para hacer la normalización de los datos, vamos a utilizar el método MinMaxScaler. Primero, importamos la función y luego hacemos la transformación de los datos de entrenamiento de las variables explicativas, almacenando en una nueva variable x_entrenamiento_normalizado:
+
+from sklearn.preprocessing import MinMaxScaler
+normalizacion = MinMaxScaler()
+x_entrenamiento_normalizado = normalizacion.fit_transform(x_entrenamiento)
+
+Si queremos visualizar el resultado de la transformación, podemos utilizar el método pd.DataFrame para generar una tabla con los datos:
+pd.DataFrame(x_entrenamiento_normalizado)
+
+2 - Con los datos normalizados, podemos generar el modelo de vecinos más cercanos con el KNeighborsClassifier a partir de los datos de entrenamiento normalizados. Primero, importamos la función:
+from sklearn.neighbors import KNeighborsClassifier
+
+Ahora inicializamos el modelo y hacemos el ajuste con los datos de entrenamiento normalizados. Por último, podemos normalizar los datos de prueba y usar el método score para evaluar el rendimiento:
+knn = KNeighborsClassifier()
+knn.fit(x_entrenamiento_normalizado, y_entrenamiento)
+
+x_test_normalizado = normalizacion.transform(x_test)
+
+knn.score(x_test_normalizado, y_test)
+El resultado obtenido fue el siguiente: 0.8172
+
+3 - Para comparar los resultados de los modelos creados en los desafíos, vamos a usar el método score con los datos de prueba, para tener un comparactivo en la misma celda:
+print(f'Exactitud Dummy: {dummy.score(x_test, y_test)}')
+print(f'Exactitud Árbol: {arbol.score(x_test, y_test)}')
+print(f'Exactitud KNN: {knn.score(x_test_normalizado, y_test)}') 
+
+que otorga como resultado:
+Exactitud Dummy: 0.7964
+Exactitud Árbol: 0.8464
+Exactitud KNN: 0.8172
+
+El modelo de árbol de decisión, en este caso, se desempeñó mejor y, por lo tanto, será el modelo seleccionado. Vamos a utilizar pickle para almacenar el modelo de árbol y también el modelo OneHotEncoder, que realiza las transformaciones de las variables categóricas. Primero, debemos importar la biblioteca pickle y luego hacer la exportación de los archivos:
+import pickle 
+El OneHotEncoder será almacenado en el archivo modelo_onehotenc.pkl:
+with open('modelo_onehotenc.pkl', 'wb') as archivo:
+    pickle.dump(one_hot, archivo)
+
+ El DecisionTreeClassifier será almacenado en el archivo modelo_arbol.pkl:
+    with open('modelo_arbol.pkl', 'wb') as archivo:
+    pickle.dump(arbol, archivo)
+
+4 - Para hacer la predicción de un nuevo dato, primero vamos a crear una variable que almacene la información de este registro, que fue proporcionado en el enunciado del desafío:
+
+nuevo_dato = pd.DataFrame({
+    'score_credito': [850],
+    'pais':['Francia'],
+    'sexo_biologico':['Hombre'],
+    'edad': [27],
+    'anos_de_cliente': [3],
+    'saldo': [56000],
+    'servicios_adquiridos': [1],
+    'tiene_tarjeta_credito': [1],
+    'miembro _activo': [1],
+    'salario_estimado': [85270.00]
+}) 
+
+Ahora, podemos hacer la lectura de los archivos pickle usando la función pd.read_pickle de pandas:
+
+modelo_one_hot = pd.read_pickle('/content/modelo_onehotenc.pkl') #entre parentesis se coloca la ruta del archivo pickle
+modelo_arbol = pd.read_pickle('/content/modelo_arbol.pkl') #entre parentesis se coloca la ruta del archivo pickle
+
+Por último, podemos usar el modelo_one_hot para hacer la transformación del nuevo dato y, a continuación, usar ese resultado para hacer la predicción con el modelo_arbol:
+
+nuevo_dato = modelo_one_hot.transform(nuevo_dato)
+modelo_arbol.predict(nuevo_dato) 
+
+El resultado obtenido fue el siguiente: array([0])
+Esto indica que la predicción fue el valor 0, que indica que no habrá churn. Por lo tanto, el cliente no dejará de utilizar los servicios.
+
+Recuerda que resolver desafíos y encontrar soluciones es una parte fundamental de cualquier jornada de aprendizaje, especialmente en Machine Learning. Por lo tanto, durante la resolución de problemas, busca explorar las diversas posibilidades. Enfrenta cada desafío como una oportunidad para alcanzar el desarrollo práctico de tus conocimientos en datos.
+
+
+1 - Para la construcción de un modelo de machine learning se necesitan datos. Como tarea inicial, realiza la lectura de la base de datos de diabetes y divide los datos en variables explicativas y variable objetivo (x e y). La variable objetivo es la columna que quieres clasificar, que contiene la información de si el paciente tiene o no diabetes. Las variables explicativas son todas las columnas excepto la de diabetes. La separación de los datos se puede hacer con la selección de columnas con pandas.
+
+2 - Una etapa muy importante en proyectos de clasificación es la validación de los modelos, para identificar si hay una generalización del modelo para datos nuevos. Realiza la división de los datos entre entrenamiento, validación y prueba. Utiliza el 5% de los datos para prueba y con el resto, deja el 25% para validación. En el momento de la separación, usa el parámetro stratify a partir de la variable objetivo para mantener la proporción de los datos.
+
+3 - La etapa de modelado de datos consiste en utilizar un algoritmo capaz de identificar patrones en los datos y clasificar los valores. A partir del modelo es posible extraer una tasa de acierto para entender su desempeño. Crea 2 modelos utilizando los algoritmos DecisionTreeClassifier y RandomForestClassifier y evalúa la precisión de entrenamiento y prueba, eligiendo el valor 3 para el parámetro max_depth del algoritmo DecisionTreeClassifier y el valor 2 para el max_depth del algoritmo RandomForestClassifier, para que los modelos no se especialicen demasiado en el patrón de los datos de entrenamiento.
+
+4 - La tasa de acierto generalmente no proporciona información suficiente para entender el comportamiento del modelo. La matriz de confusión es una herramienta más completa, capaz de proporcionar los aciertos y errores del modelo para cada clase. Construye una matriz de confusión para cada uno de los modelos para evaluar el desempeño de la predicción. Para construir la matriz, usa el método predict para generar las predicciones de los valores y comparar con los valores reales de la base de datos.
+
+luego de explorar los datos, La base de datos tiene solo 394 filas y 6 columnas. Podemos observar 6 columnas de datos: glicemia, presion_sanguinea, pliegue_cutaneo_triceps, insulina, imc y diabetes. La clasificación del modelo debe hacerse para la columna de diabetes, que presenta valores de 0 para ausencia de diabetes y 1 para presencia de diabetes, por lo tanto, esta es la variable objetivo y el resto son variables explicativas. Podemos realizar la división de los datos usando el código:
+x = datos.drop('diabetes', axis = 1)
+y = datos['diabetes']
+
+2 - Para realizar la división de datos entre entrenamiento, validación y prueba, podemos usar el método train_test_split de la biblioteca Scikit-Learn. Primero debemos importar la función con el código:
+from sklearn.model_selection import train_test_split
+La primera división se hará de los datos de prueba y luego con el resto se hará una nueva división entre entrenamiento y validación, usando el parámetro stratify = y para mantener la proporción de los datos de la variable objetivo entre los conjuntos. Dado que la base de datos tiene pocos registros, solo se dividirá el 5% de los datos para prueba para que haya una cantidad mayor de registros en la base de datos de entrenamiento:
+
+x, x_prueba, y, y_prueba = train_test_split(x, y, stratify = y, test_size = 0.05, random_state = 5)
+x_entrenamiento, x_val, y_entrenamiento, y_val = train_test_split(x, y, stratify = y, random_state = 5)
+
+3 - La primera etapa para la creación de los modelos será la importación de los algoritmos DecisionTreeClassifier y RandomForestClassifier, usando el código:
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+
+Después de la importación de los algoritmos, podemos instanciar los modelos y almacenarlos en variables, aquí se eligieron los valores de max_depth = 3 para el DecisionTree y max_depth = 2 para el RandomForest:
+
+arbol = DecisionTreeClassifier(max_depth = 3)
+random_forest = RandomForestClassifier(max_depth = 2)
+
+Para hacer el ajuste de los modelos podemos usar el método fit() y para evaluar la tasa de acierto, el método score():
+
+arbol.fit(x_entrenamiento, y_entrenamiento)
+print(f'Precisión de entrenamiento: {arbol.score(x_entrenamiento, y_entrenamiento)}')
+print(f'Precisión de prueba: {arbol.score(x_val, y_val)}')
+
+random_forest.fit(x_entrenamiento, y_entrenamiento)
+print(f'Precisión de entrenamiento: {random_forest.score(x_entrenamiento, y_entrenamiento)}')
+print(f'Precisión de prueba: {random_forest.score(x_val, y_val)}')
+
+4 - Para generar la matriz de confusión, primero es necesario importar la función ConfusionMatrixDisplay, usando el código:
+
+from sklearn.metrics import ConfusionMatrixDisplay
+
+Hecho esto, basta con utilizar el método predict() para hacer la predicción de datos con los modelos y luego utilizar los valores reales y previstos en el método from_predictions() de la matriz de confusión:
+
+prediccion_arbol = arbol.predict(x_val)
+ConfusionMatrixDisplay.from_predictions(y_val, prediccion_arbol);
+
+prediccion_rf = random_forest.predict(x_val)
+ConfusionMatrixDisplay.from_predictions(y_val, prediccion_rf);
 '''

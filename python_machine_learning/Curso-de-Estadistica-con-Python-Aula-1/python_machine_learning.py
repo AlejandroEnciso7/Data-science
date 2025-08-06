@@ -92,8 +92,12 @@ print(f"La mediana de la edad es {datos.Edad.median()}")  # Calcula la mediana d
 # X = datos[['Años de Estudio', 'Edad']]  # Variables independientes
 # y = datos['Ingreso']  # Variable dependiente
 
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)  # Divide los datos en conjuntos de entrenamiento (80%, X_train y y_train) 
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)  # Divide los datos en conjuntos de entrenamiento (80%, X_train y y_train) 
 # y prueba (20%, X_test y y_test, definido por el test_size=0.2) y establece una semilla aleatoria (random_state=42) para reproducibilidad, funciona como un seed.
+# Stratify=y asegura que la división mantenga la proporción de clases en la variable dependiente y (es decir tanto el 80% como el 20% mantienen el mismo porcentaje de variables negativas o positivas),
+#  lo que es importante si se tiene una variable categórica como objetivo.
+# los datos de entrenamiento se utilizan para ajustar el modelo ya que el modelo podra ver los resultados de como se comportan las variables, 
+# mientras que los datos de prueba se utilizan para evaluar su desempeño con datos que nunca ha visto antes.
 
 #sm.OLS(y_train, sm.add_constant(X_train)).fit()  # Ajusta un modelo de regresión lineal a los datos de entrenamiento, añadiendo una constante para el término independiente. 
 # ejemplo de uso:
@@ -168,3 +172,127 @@ print(f"La mediana de la edad es {datos.Edad.median()}")  # Calcula la mediana d
 # from sklearn.preprocessing import LabelEncoder # ayuda a convertir las variable tipo objeto en variables numéricas,
 # label_encoder = LabelEncoder()  # Crea una instancia del codificador de etiquetas
 # y = label_encoder.fit_transform(y)  # Aplica el codificador a la variable dependiente y, transformando las categorías (en este caso 'si' y 'no'en valores numéricos.
+
+# OVERFITTING Y UNDERFITTING
+# Overfitting ocurre cuando el modelo se ajusta demasiado a los datos de entrenamiento, capturando el ruido y las fluctuaciones aleatorias en lugar de la tendencia general.
+# Esto puede llevar a un rendimiento deficiente en los datos de prueba, ya que el modelo no generaliza bien a nuevos datos.
+# Características del overfitting:
+
+#Error muy bajo en las predicciones en datos de entrenamiento;
+#Error muy alto en las predicciones en datos de prueba;
+#Modelo muy complejo que intenta memorizar los datos de entrenamiento en lugar de aprender el patrón de los datos.
+
+# Underfitting ocurre cuando el modelo es demasiado simple para capturar la complejidad de los datos, 
+# lo que resulta en un rendimiento deficiente tanto en los datos de entrenamiento como en los de prueba.
+# Características del underfitting:
+# Error alto en las predicciones en datos de entrenamiento;
+# Error alto en las predicciones en datos de prueba;
+# Modelo demasiado simple que no puede aprender el patrón de los datos.
+
+# para evaluar si un modelo se encuentra balanceado o no se puede tener una primera valorcion on un dummy
+# from sklearn.dummy import DummyClassifier
+# dummy = DummyClassifier()
+# dummy.fit(X_train, y_train)  # Ajusta el clasificador dummy a los datos de entrenamiento
+# dummy.score(X_test, y_test)  # Evalúa el clasificador dummy en los datos de prueba, proporcionando una línea base para comparar con modelos más complejos que intentaremos crear mas adelante.
+
+# ARBOLES DE DECISION
+# Los árboles de decisión son modelos de Machine Learning que se utilizan para clasificación y regresión,
+# que dividen los datos en subconjuntos basados en características específicas, creando una estructura jerárquica similar a un árbol.
+# Cada nodo interno del árbol representa una prueba en una característica, por ejemplo X<=25, se ejecuta sobre laas columnas abc en donde cada columna contiene unos valores,
+# idealmente los valores dentro de las columnas deberian retornar verdadero o falso segun la condicion que se establezca en el nodo (x<=25), de no retornar los valores 1 o 0 esperados
+# se genera una nueva condicion que logre aplicar para todos. Cada rama representa el resultado de la prueba es decir devolverá verdadero o falso segun la hipotesis del nodo sea correcta o no,
+# y cada hoja representa una etiqueta de clase o un valor de predicción.
+
+# from sklearn.tree import DecisionTreeClassifier  # Importa la clase para crear un árbol de decisión para clasificación
+# modelo_arbol = DecisionTreeClassifier(random_state=42)  # Crea una instancia del árbol de decisión con una semilla aleatoria para reproducibilidad
+# modelo_arbol.fit(X_train, y_train)  # Ajusta el árbol de decisión a los datos de entrenamiento
+# modelo_arbol.score(X_test, y_test)  # Evalúa el árbol de decisión en los datos de prueba, proporcionando una medida de precisión del modelo.
+# GRAFICAR EL ARBOL DE DECISION
+# plt.figure(figsize=(80,30))  # Establece el tamaño de la figura para el gráfico del árbol
+# plot_tree (modelo_arbol, filled=True, class_names=['no', 'si'], fontsize=6, feature_names=X.columns)  # Grafica el árbol de decisión, 
+# rellenando los nodos con colores según las clases, y etiquetando las clases y características.
+
+'''El árbol de decisión es un algoritmo de machine learning supervisado que tiene una buena interpretabilidad. Esto significa que es posible tener una comprensión fácil de los pasos que se realizaron para llegar al resultado final de la predicción del modelo. Estos pasos pueden ser representados de forma visual, a partir de un diagrama que indica cada una de las decisiones que se tomaron para llegar a la clasificación de un dato.
+
+Para llegar a una regla que clasifique los datos con una buena tasa de acierto, las decisiones del árbol no pueden ser totalmente aleatorias. Debe haber un sentido en cada elección hecha por el árbol de decisión. Ahora entendamos cómo se hacen estas elecciones:
+
+El primer paso es seleccionar una columna de la base de datos que se utilizará para dividir los datos en 2 subconjuntos. El objetivo es que la mayor cantidad posible de datos se separe en relación con la variable objetivo. Entonces, el mejor resultado posible sería si uno de los subconjuntos tuviera solo datos de una categoría de la variable objetivo y el otro subconjunto tuviera solo datos de la otra categoría restante. Para hacer la mejor elección posible, se prueban diferentes columnas y valores, y aquella que proporcione la mejor separación se elige como la primera regla del árbol de decisión.
+
+Para definir qué es una buena separación, se realizan cálculos matemáticos para obtener la proporción de datos de cada categoría de la variable objetivo dentro de los subconjuntos. El resultado de este cálculo se conoce como métrica de impureza. Existen diferentes tipos de métricas, siendo las más utilizadas la entropía y el índice de Gini. A continuación, se presentan las características de cada una.
+
+Índice Gini
+Este índice informa el grado de heterogeneidad de los datos. Su objetivo es medir la frecuencia de que un elemento aleatorio de un nodo sea etiquetado de manera incorrecta. En otras palabras, este índice cuantifica y determina la impureza de un nodo, idealmente debería ser 0 si todos los elementos pertenecen a una sola clase y 0.5 si hay una mezcla equitativa de clases.'''
+
+# modelo_arbol = DecisionTreeClassifier (max_depth=3, random_state=42)  # Crea un árbol de decisión con una profundidad máxima de 3 para evitar el sobreajuste 
+# y se mantiene el random state para mantener el seed, ajustar la profundidad del árbol puede ayudar a evitar el sobreajuste, ya que limita la complejidad del modelo.
+
+# PASOS RESUMIDOS PARA CREAR UN ARBOL DE DECISION
+#Separar la base de datos entre entrenamiento y prueba;
+#Construir un modelo base con el DummyClassifier;
+#Construir un modelo de árbol de decisión con el DecisionTreeClassifier;
+#Evaluar un modelo de machine learning usando la tasa de acierto del método score;
+#Visualizar las decisiones de un árbol de decisión con el método plot_tree.
+
+# NORMALIZACION DE DATOS para modelo KNN
+# La normalización de datos es un proceso que ajusta los valores de las características para que tengan una escala común,
+# esto sirve para que valores numericos de diferentes magnitudes no dominen el modelo de machine learning, por ejemplo la variable edad y la variable ingreso,
+# una edad maxima llegaria a 100 y un ingreso maximo a 20000, por lo que la edad no tendria tanto peso en el modelo como el ingreso,
+# por lo que se normalizan los datos para que todas las variables tengan el mismo peso en el modelo.
+
+#from sklearn.preprocessing import MinMaxScaler  # Importa la clase para normalizar los datos
+# normalization = MinMaxScaler()  # Crea una instancia del normalizador
+# X_train_normalized = normalization.fit_transform(X_train)  # Ajusta y transforma los datos de entrenamiento, normalizando las características para que estén en el rango [0, 1]
+
+# from sklearn.neighbors import KNeighborsClassifier  # Importa la clase para crear un clasificador k-NN que define una variable en función de sus vecinos más cercanos
+# modelo_knn = KNeighborsClassifier(n_neighbors=5)  # Crea una instancia del clasificador k-NN con 5 vecinos más cercanos, tambien dejar vacio los ()
+# x_test_normalized = normalization.transform(X_test)  # Transforma los datos de prueba utilizando el mismo normalizador ajustado a los datos de entrenamiento
+# modelo_knn.score(X_test_normalized, y_test)  # Evalúa el clasificador k-NN en los datos de prueba normalizados, proporcionando una medida de precisión del modelo.
+
+# PICKLE PARA EXPORTAR MODELOS
+# import pickle  # Importa la biblioteca para la serialización de objetos
+
+# with open('modelo_knn.pkl', 'wb') as archivo:  # Abre un archivo en modo escritura binaria
+#     pickle.dump(modelo_knn, archivo)  # Serializa y guarda el modelo k-NN en el archivo, también se puede usar para guardar otros modelos como DecisionTreeClassifier, 
+# LinearRegression, one hot encoder, etc.
+
+'''  El módulo pickle en Python es una herramienta poderosa y versátil que permite la serialización y deserialización de objetos Python.
+ Este proceso de serialización implica la conversión de objetos Python en una representación binaria que puede ser almacenada en un archivo. 
+ Más tarde, esta representación puede ser deserializada para recrear el objeto original.
+
+Así, es posible almacenar modelos de machine learning en archivos pickle, para que puedan ser utilizados en otros programas. 
+Él preserva completamente el estado del objeto, incluyendo todos los parámetros y configuraciones. 
+Además, el formato binario generado por el pickle es independiente de la plataforma, lo que significa que es posible crear un archivo en un sistema operativo y 
+cargarlo en otro sin problema de compatibilidad. Vale destacar que en versiones diferentes de Python esto puede ser un problema. 
+Objetos serializados en una versión específica pueden no ser cargados correctamente en otra versión. Por lo tanto, es muy importante saber cuál es la versión del lenguaje y 
+de las bibliotecas utilizadas en el proyecto para que sean replicadas dentro del sistema en el que se va a utilizar.
+
+El proceso para utilizar el pickle involucra principalmente dos funciones:
+
+pickle.dump(objeto, archivo): Esta función permite almacenar un objeto Python en un archivo. El argumento objeto es el objeto que deseas serializar, 
+y el argumento archivo es el objeto de archivo donde deseas almacenar la representación binaria.
+pickle.load(archivo): Esta función permite que deserialices (cargues) un objeto Python de un archivo. 
+El argumento archivo es el archivo de donde deseas cargar la representación binaria.
+También podemos usar la biblioteca pandas para hacer la lectura de archivos pickle. Para esto, basta con utilizar el método pd.read_pickle.
+
+Para obtener una evaluación más completa del desempeño de modelos de clasificación, podemos utilizar una herramienta conocida como matriz de confusión. Esta matriz ofrece ventajas a la persona científica de datos, ya que permite entender cuántos errores y aciertos tiene las predicciones de un modelo. En lugar de una tasa de acierto general, la matriz es capaz de proporcionar información en una visualización para cada una de las categorías de la variable objetivo.
+
+Piensa en un sistema de seguridad de un edificio que utiliza cámaras para identificar personas que entran. La "matriz de confusión" se vuelve valiosa, ya que permite verificar cuántas veces el sistema acertó al identificar correctamente a las personas autorizadas, cuántas veces acusó erróneamente a personas y cuántas veces dejó pasar a personas no autorizadas. Con estos números, es posible ajustar el sistema para minimizar falsos positivos y negativos, mejorando su precisión en la detección de visitantes.
+
+En la representación general de una matriz de confusión, para más detalles analiza la imagen a continuación, las filas de la matriz corresponden a los valores reales de la base de datos, mientras que las columnas corresponden a los valores previstos por el modelo de clasificación. Las categorías de la variable objetivo están representadas por el valor 0 (ausencia del atributo), también llamado negativo, y por el valor 1 (presencia del atributo), también llamado positivo.
+
+Cada elemento de la matriz está identificado por un nombre de acuerdo con la intersección entre la predicción y el valor real. La diagonal principal de la matriz, que está destacada por el color verde, representa los elementos que tienen la predicción igual al valor real, por lo tanto son los aciertos del modelo. Por otro lado, la diagonal secundaria, que está destacada por el color rojo, representa los elementos con predicciones diferentes del valor real, por lo tanto son los errores del modelo. La descripción de cada uno de los elementos es la siguiente:
+
+Verdaderos Negativos (VN): Cuando el valor real es 0 y la predicción también es 0. Indica que el modelo clasificó correctamente los valores de la clase negativa.
+Falsos Positivos (FP): Cuando el valor real es 0 y la predicción es 1. Indica que el modelo clasificó erróneamente un elemento de la clase negativa como si fuera de la clase positiva.
+Falsos Negativos (FN): Cuando el valor real es 1 y la predicción es 0. Indica que el modelo clasificó erróneamente un elemento de la clase positiva como si fuera de la clase negativa.
+Verdaderos Positivos (VP): Cuando el valor real es 1 y la predicción también es 1. Indica que el modelo clasificó correctamente los valores de la clase positiva.
+
+visualmente la distrubicion de la matriz de confusión se puede ver con el siguiente codigo:
+ '''
+# from sklearn.metrics import confusion_matrix  # Importa la función para calcular la matriz de confusión
+# y_previsto = modelo.predict(x_val)  # Realiza predicciones en el conjunto de validación utilizando el modelo ajustado
+# matriz_confusion = confusion_matrix(y_val, y_previsto)  # Calcula la matriz de confusión comparando los valores reales (y_val) con las predicciones (y_previsto)
+# print)matriz_confusion)  # Imprime la matriz de confusión
+# la matriz se vera asi:
+#[[10256(verdadero negativo)  123(falso positivo)]
+#[ [  98(falso negativo)  523(verdadero positivo)]]
