@@ -296,3 +296,48 @@ visualmente la distrubicion de la matriz de confusión se puede ver con el sigui
 # la matriz se vera asi:
 #[[10256(verdadero negativo)  123(falso positivo)]
 #[ [  98(falso negativo)  523(verdadero positivo)]]
+
+# VALIDAR MODELOS
+# otra forma de validar los modelos es por medio del recall Mide la proporción de datos positivos que fueron correctamente identificados por el modelo, es decir, 
+# revela la capacidad del modelo en evitar la clasificación incorrecta de datos positivos como negativos. 
+# Se usa cuando el riesgo o costo de clasificar falsos negativos es alto. 
+# Por ejemplo, en casos de diagnóstico de enfermedades graves, donde es fundamental detectar correctamente la presencia de la enfermedad.
+
+# A continuación, podemos constatar el cálculo del recall a partir de la matriz de confusión. El recall solo toma en cuenta los valores positivos reales, es decir,
+#  los valores de la segunda fila de la matriz. Se calcula a partir de la división entre Verdaderos Positivos (VP) y la suma de todos los positivos reales (VP + FN):
+
+#tambien se puede utilizar la precision, Mide la proporción de datos clasificados como positivos que son realmente positivos, es decir, 
+# revela la capacidad del modelo en evitar la clasificación incorrecta de datos negativos como positivos. 
+# Se usa cuando el riesgo o costo de clasificar falsos positivos es alto, por ejemplo, en casos de selección de acciones en el mercado financiero, 
+# donde lo importante es seleccionar acciones que tengan gran probabilidad de retorno, 
+# reduciendo la cantidad de acciones malas (falsos positivos) incluso si otras buenas acciones no han sido detectadas por el modelo (falso negativo). 
+# La precisión también es importante en el ejemplo de detección de enfermedades, donde queremos evitar que pacientes sanos sean erróneamente clasificados como enfermos.
+
+#A continuación, podemos analizar el cálculo de la precisión a partir de la matriz de confusión.
+#  La precisión solo toma en cuenta los valores positivos previstos por el modelo, es decir, los valores de la segunda columna de la matriz.
+#  Se calcula a partir de la división entre Verdaderos Positivos (VP) y la suma de todos los positivos previstos (VP + FP):
+
+# finalmente se puede utilizar la f1-score, que es una métrica que combina la precisión y el recall en un solo valor,
+# F1-Score proporciona un equilibrio entre el recall y la precisión, siendo útil cuando las clases de la variable objetivo están desbalanceadas, es decir, 
+# cuando hay una cantidad de datos muy diferente para cada clase. Además, es aplicable cuando el riesgo o costo de falsos positivos y de falsos negativos es alto simultáneamente.
+# En casos de detección de tumores en pacientes, es necesario tener un equilibrio entre evitar errores en la detección de tumores cuando la persona realmente los tiene y 
+# evitar errores al informar que una persona tiene un tumor cuando en realidad no lo tiene.
+
+#El cálculo del F1-Score se realiza a partir de la media armónica entre la precisión y el recall. 
+# Por lo tanto, equivale a 2 veces la precisión por el recall, dividido por la suma entre la precisión y el recall
+
+# CURVA ROC
+# La curva ROC (Receiver Operating Characteristic) es una herramienta gráfica utilizada para evaluar el desempeño de modelos de clasificación binaria.
+# se hace de la siguiente manera:
+# from sklearn.metrics import RocCurveDisplay  # Importa la clase para crear la curva ROC
+# RocCurveDisplay.from_predictions(y_val, y_previsto, name='arbol de decisión')  # Crea la curva ROC a partir de las predicciones del modelo y los valores reales del conjunto de validación
+
+
+# CURVA PRECISION-RECALL
+# La curva de precisión-recall es una herramienta gráfica utilizada para evaluar el desempeño de modelos de clasificación binaria,
+#  especialmente en situaciones donde las clases están desbalanceadas. Como la curva de precisión x recall no evalúa la tasa de verdaderos negativos, 
+# que generalmente contendrá la mayor cantidad de datos, el análisis se concentra más en la clase con menor cantidad de datos,
+#  y esto hace que el análisis sea mejor en datos desbalanceados.
+# se hace de la siguiente manera:
+# from sklearn.metrics import PrecisionRecallDisplay  # Importa la clase para crear la curva de precisión-recall
+# PrecisionRecallDisplay.from_predictions(y_val, y_previsto, name='arbol de decisión')  # Crea la curva de precisión-recall a partir de las predicciones del modelo y los valores reales del conjunto de validación
