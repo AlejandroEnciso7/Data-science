@@ -75,6 +75,7 @@ print(f"La mediana de la edad es {datos.Edad.median()}")  # Calcula la mediana d
 # tambien se pueden usar multiples variables  tanto en x_vars como en y_vars, por ejemplo:
 
 # datos.describe # Muestra estadísticas descriptivas de las columnas numéricas del DataFrame, como la media, desviación estándar, valores mínimo y máximo, cuartiles, etc.
+# datos.describe(include='O')  # Estadísticas descriptivas para las variables del tipo “object”
 # datos.corr() # Muestra la matriz de correlación entre las columnas numéricas del DataFrame, indicando la relación lineal entre ellas, 
 # si es positiva (cuando una aumenta la otra también) o negativa (cuando una aumenta y la otra disminuye).
 
@@ -341,3 +342,50 @@ visualmente la distrubicion de la matriz de confusión se puede ver con el sigui
 # se hace de la siguiente manera:
 # from sklearn.metrics import PrecisionRecallDisplay  # Importa la clase para crear la curva de precisión-recall
 # PrecisionRecallDisplay.from_predictions(y_val, y_previsto, name='arbol de decisión')  # Crea la curva de precisión-recall a partir de las predicciones del modelo y los valores reales del conjunto de validación
+
+
+# MODELO K-FOLD
+# modelo = DecisionTreeClassifier(max_depth=10)
+# kf =KFold(n_splits=5, shuffle=True, random_state=42)  # Crea un objeto KFold para dividir los datos en 5 pliegues, 
+# barajando los datos y estableciendo una semilla aleatoria para reproducibilidad
+# cv_resultados =cross_validate(modelo, X, y, cv=kf, scoring='recall') # Realiza la validación cruzada del modelo utilizando el objeto KFold,
+# print(cv_resultados)  # Imprime los resultados de la validación cruzada, que incluyen las puntuaciones de recall para cada pliegue.
+
+# MODELO STRATIFIED K-FOLD
+# from sklearn.model_selection import StratifiedKFold  # Importa la clase para crear un K-Fold estratificado
+# modelo= DecisionTreeClassifier(max_depth=10)  # Crea un modelo de árbol de decisión con una profundidad máxima de 10
+# skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)  # Crea un objeto StratifiedKFold para dividir los datos en 5 pliegues,
+# barajando los datos y estableciendo una semilla aleatoria para reproducibilidad, StratifiedKFold garantiza que cada pliegue tenga una representación proporcional de las clases.
+# cv_resultados =cross_validate(modelo, X, y, cv=kf, scoring='recall') # Realiza la validación cruzada del modelo utilizando el objeto KFold,
+# print(cv_resultados)  # Imprime los resultados de la validación cruzada, que incluyen las puntuaciones de recall para cada pliegue.
+
+'''
+undersampling
+Es una técnica que consiste en mantener todos los datos de la clase de menor frecuencia y reducir la cantidad de los de la clase de mayor frecuencia,
+ haciendo que las observaciones del conjunto tengan datos con la variable objetivo balanceada.
+
+Puede ser una ventaja usar undersampling para reducir el almacenamiento de datos y el tiempo de ejecución del código, 
+ya que la cantidad de datos será mucho menor. Una de las técnicas más utilizadas es Near Miss, que disminuye aleatoriamente el número de valores de la clase mayoritaria.
+
+Algo muy interesante de Near Miss es que utiliza la menor distancia promedio de los K-vecinos más cercanos, es decir, 
+selecciona los valores en base al método KNN (K-nearest neighbors) para reducir la pérdida de información.
+
+oversampling
+Es una técnica que consiste en aumentar el número de registros de la clase con menor frecuencia hasta que la base de datos tenga un número equilibrado
+ entre las clases de la variable objetivo. Para aumentar la cantidad de registros, podemos duplicar aleatoriamente los registros de la clase con menos frecuencia. 
+ Sin embargo, esto hará que mucha información sea idéntica, lo que puede afectar el modelo.
+
+Una ventaja de esta técnica es que no se pierde ninguna información de los registros que tenían la clase con mayor frecuencia. 
+Esto hace que el conjunto de datos tenga muchos registros para alimentar los algoritmos de aprendizaje automático.
+ A su vez, el tiempo de almacenamiento y procesamiento crece significativamente y existe la posibilidad de sobreajustar los datos que se han duplicado.
+   Este sobreajuste ocurre cuando el modelo se vuelve muy bueno para predecir los resultados de los datos de entrenamiento, pero no generaliza bien los datos nuevos.
+
+Para evitar tener demasiados datos idénticos, se puede utilizar la técnica SMOTE, que consiste en sintetizar nueva información a partir de información existente.
+ Estos datos “sintéticos” están relativamente cerca de los datos reales, pero no son idénticos. 
+
+Ambas técnicas de balanceo se pueden aplicar utilizando la biblioteca imbalanced-learn que se basa en sklearn y proporciona herramientas para tratar con datos desbalanceados.
+
+Asi mismo se pueden combinar ambas tecnicas para balancear los puntos dengativos de ambas, existe el algortimo de SMOTEENN,
+que combina SMOTE y Edited Nearest Neighbors (ENN) para crear un conjunto de datos balanceado.
+'''
+
