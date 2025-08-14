@@ -389,3 +389,29 @@ Asi mismo se pueden combinar ambas tecnicas para balancear los puntos dengativos
 que combina SMOTE y Edited Nearest Neighbors (ENN) para crear un conjunto de datos balanceado.
 '''
 
+# FEATURE IMPORTANCE
+# La importancia de las características se refiere a la técnica de asignar un puntaje a cada característica en función de su contribución a la predicción del modelo.
+# Esto permite identificar qué características son más relevantes y cuáles pueden ser eliminadas sin perder información importante.
+# Existen diferentes métodos para calcular la importancia de las características/columnas
+# importances = modelo.feature_importances_   devuelve un array
+# pero si se hace asi:
+# feature_importances = pd.DataFrame({'Features': X.columns, 'Importances':(importances*100).round(2)}).sort_values('Importances', ascending=False)
+# se crea un DataFrame que contiene las características y sus importancias, multiplicando por 100 y redondeando a 2 decimales para facilitar la interpretación.
+
+#resultados = pd.DataFrame(index=['RMSE', 'MAE', 'R2'])
+#model_features = RandomForestRegressor(max_depth=5, random_state=42)
+#ct_features=[i if i!=0 else 1 for i in range(0,35,5)]
+
+# for i in ct_features:
+    #selected_features = feature_importances['Features'].values[:i]
+    #X_train_selected = X_train[selected_features]
+    #X_test_selected = X_test[selected_features]
+    #model_features.fit(X_train_selected, y_train)
+    #y_pred = model_features.predict(X_test_selected)
+    #metricas = calcular_regresion(y_test, y_pred)
+    #resultados[i] =list(metricas.values())
+    #print(resultados)
+
+# selected_features = feature_importances['Features'].values[:13] # segun el for anterior sabemos que hasta 13 features hay un verdadero cambio/mejoria en el modelo
+#X_selected_features = X[selected_features]
+#print(X_selected_features)
