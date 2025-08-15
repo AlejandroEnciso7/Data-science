@@ -415,3 +415,62 @@ que combina SMOTE y Edited Nearest Neighbors (ENN) para crear un conjunto de dat
 # selected_features = feature_importances['Features'].values[:13] # segun el for anterior sabemos que hasta 13 features hay un verdadero cambio/mejoria en el modelo
 #X_selected_features = X[selected_features]
 #print(X_selected_features)
+
+# OPTIMIZAR HIPERPARAMETROS CON GRIDSEARCHCV
+'''Al usar GridSearchCV para optimizar hiperparámetros, es fundamental entender cuántas veces se entrena y evalúa el algoritmo para determinar la complejidad computacional y 
+el tiempo necesario para la búsqueda de hiperparámetros. En el código a continuación, analiza cuántas veces se entrena y evalúa el algoritmo:'''
+
+# from sklearn.model_selection import GridSearchCV
+
+# param_grid = {
+ # 'max_depth': [5, 10, 15],
+ # 'min_samples_leaf': [1, 2, 3],
+ # 'min_samples_split': [2, 4, 6],
+ # 'n_estimators': [100, 150, 200]
+ #}
+
+#model_grid = GridSearchCV(RandomForestRegressor(random_state=42), param_grid=param_grid, cv=3, scoring='r2')
+#model_grid.fit(X_train, y_train)
+
+'''Los hiperparámetros son configuraciones que puedes ajustar para controlar el comportamiento del RandomForestRegressor.
+ A continuación, se presenta una lista de los principales hiperparámetros:
+
+1 - n_estimators:
+
+Este hiperparámetro especifica el número de árboles de decisión que se crearán en el bosque aleatorio. Cuanto mayor sea el número de estimadores, 
+mayor será la capacidad del modelo para ajustarse a los datos. Sin embargo, un número muy alto puede llevar a un aumento en el tiempo de entrenamiento.
+
+2 - criterion:
+
+El hiperparámetro criterion determina la función de medición de la calidad de una división durante la construcción de los árboles. 
+Para regresión, el valor predeterminado es "mse" (Error Cuadrático Medio), que calcula la media de los cuadrados de los errores. Otra opción es "mae" (Error Absoluto Medio),
+ que utiliza la media de los valores absolutos de los errores.
+
+3 - max_depth:
+
+Este hiperparámetro controla la profundidad máxima de los árboles de decisión en el bosque. Limitar la profundidad puede ayudar a evitar el sobreajuste, 
+ya que impide que los árboles se ajusten demasiado a los datos de entrenamiento y no puedan hacer buenas predicciones para nuevos datos.
+
+4 - min_samples_split:
+
+El min_samples_split determina el número mínimo de muestras necesarias para dividir un nodo interno del árbol. 
+Esto ayuda a controlar el crecimiento de los árboles y evita divisiones que llevan a nodos con pocas muestras.
+
+5 - min_samples_leaf:
+
+Este hiperparámetro define el número mínimo de muestras requeridas en una hoja (nodo terminal) del árbol. 
+Esto ayuda a controlar la granularidad del árbol y puede impedir que las hojas contengan muy pocas muestras.
+
+6 - max_features:
+
+max_features especifica el número máximo de características a considerar al buscar la mejor división en cada nodo. Los valores comunes incluyen "auto" (sqrt(n_features)),
+ "sqrt" (también sqrt(n_features)), "log2" (log2(n_features)), o un número entero que representa la cantidad exacta de características a considerar.
+
+7 - random_state:
+
+Este hiperparámetro define una semilla para el generador de números aleatorios utilizado para crear el bosque aleatorio.
+ Definir un valor fijo para random_state garantiza que el modelo sea reproducible.
+ 
+8 - n_jobs:
+
+n_jobs especifica el número de núcleos de CPU a utilizar para el entrenamiento en paralelo. Si se define como -1, se utilizarán todos los núcleos disponibles.'''
